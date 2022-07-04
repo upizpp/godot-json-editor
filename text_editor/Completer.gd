@@ -36,15 +36,22 @@ func _input(event):
 				var keyword = labels.get_child(index).text
 				var line : String = editor.get_line(editor.cursor_get_line())
 				var begini : int = editor.cursor_get_column() - 1
-				var endi : int = line.find(" ", editor.cursor_get_column() - 1)
-				while (begini > 0):
-					if line[begini] == " ":
+				var endi : int = editor.cursor_get_column() - 1
+				while (begini >= 0):
+					if line[begini] in editor.separators:
+						begini += 1
 						break
 					begini -= 1
-				if endi == -1:
-					endi = line.length() - 1
-				var begin = line.substr(0, begini + 1) if begini > 0 else ""
+				while (endi < line.length() - 1):
+					if line[endi] in editor.separators:
+						break
+					endi += 1
+				var begin = line.substr(0, begini) if begini > 0 else ""
 				var end = line.substr(endi + 1, -1)
+				print(begini)
+				print("#", begin, "#")
+				print("#", keyword, "#")
+				print("#", end, "#")
 				line = begin + keyword + end
 				editor.set_line(editor.cursor_get_line(), line)
 				reset_label()

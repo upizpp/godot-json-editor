@@ -7,6 +7,7 @@ signal type(ch, backspace)
 
 export(Array, Array, String) var regions
 export(PoolStringArray) var filter_keys
+export(Array, String, MULTILINE) var separators
 
 
 const Colors = {
@@ -70,13 +71,16 @@ func get_word(from : int):
 	if from < 0 or from > line.length():
 		return
 	var begin : int = from
-	var end : int = line.find(" ", from)
+	var end : int = from
 	while (begin >= 0):
-		if line[begin] == " ":
+		if line[begin] in separators:
 			break
 		begin -= 1
-	if end == -1:
-		end = line.length() - 1
+	while (end < line.length() - 1):
+		if line[end] in separators:
+			end -= 1
+			break
+		end += 1
 	return line.substr(begin + 1, end - begin)
 
 

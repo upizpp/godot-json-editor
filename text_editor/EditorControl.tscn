@@ -130,6 +130,7 @@ caret_blink = true
 script = ExtResource( 4 )
 regions = [ [ "\"", "\"" ], [ "[", "]" ], [ "{", "}" ], [ "'", "'" ] ]
 filter_keys = PoolStringArray( "Left", "Right", "Up", "Down", "Shift", "Control", "Space" )
+separators = PoolStringArray( " ", "\t", ",", "." )
 
 [node name="Completer" type="ScrollContainer" parent="JsonTextEdit"]
 visible = false
